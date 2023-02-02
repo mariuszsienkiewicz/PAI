@@ -1,0 +1,16 @@
+{
+    "name": "mariuszsienkiewicz/k-means",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Mariuszsienkiewicz\\KMeans\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mariuszsienkiewicz",
+            "email": "mariusz.sienkiewicz.it@gmail.com"
+        }
+    ],
+    "require": {}
+}
