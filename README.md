@@ -31,11 +31,11 @@ for ($i = 0; $i < 200; $i++) {
     ];
 }
 
-// initialize the KMeans class with points and 3 clusters
-$kmeans = new KMeans($points, 3);
+// initialize the KMeans object and use 3 clusters
+$kmeans = new KMeans(3);
 
 // group the data into clusters in 10 iterations
-$clusters = $kmeans->group(10);
+$clusters = $kmeans->cluster($points);
 ```
 
 ## Image snapshot of each step
@@ -49,7 +49,7 @@ There is a possibility to get the snapshot (image) of each step:
 
 use Mariuszsienkiewicz\KMeans\Subscriber\ImageSubscriber;
 
-$kmeans = new KMeans($points, 3);
+$kmeans = new KMeans(10);
 
 // subscriber initialization
 $imageSubscriber = new ImageSubscriber($path, $imgWidth, $imgHeight, $minVal, $maxVal);
@@ -65,8 +65,12 @@ $kmeans->attach($imageSubscriber);
 Currently it's possible to color 19 clusters with different colors, if you need more (or you want to override some colors) then you can do it this way:
 
 ```php
+<?php
+
+# autoload etc.
+
 $colors = [
-    1 => [244, 67, 54], // cluster with index 1 will get this color (default color will be overriden)
+    1 => [244, 67, 54], // cluster with index 1 will get this color (default color will be overridden)
     20 => [222, 222, 123] // new color for cluster with index 20
 ];
 
