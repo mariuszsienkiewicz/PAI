@@ -34,7 +34,7 @@ for ($i = 0; $i < 200; $i++) {
 // initialize the KMeans object and use 3 clusters
 $kmeans = new KMeans(3);
 
-// group the data into clusters in 10 iterations
+// group the data into clusters
 $clusters = $kmeans->cluster($points);
 ```
 
