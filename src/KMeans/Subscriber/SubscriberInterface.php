@@ -1,7 +1,7 @@
 <?php
 
-namespace Mariuszsienkiewicz\KMeans\Subscriber;
-use Mariuszsienkiewicz\KMeans\DataType\Point;
+namespace Mariuszsienkiewicz\PAI\KMeans\Subscriber;
+use Mariuszsienkiewicz\PAI\KMeans\DataType\Point;
 
 interface SubscriberInterface
 {
@@ -14,14 +14,14 @@ interface SubscriberInterface
 
     /**
      * Fired after random points assigment.
-     * @param array<\Mariuszsienkiewicz\KMeans\DataType\Cluster> $clusters
+     * @param array<\Mariuszsienkiewicz\PAI\KMeans\DataType\Cluster> $clusters
      * @return void
      */
     public function randomPointsAssignmentEvent(array $clusters): void;
 
     /**
      * Fired after creation of new centroids
-     * @param array<\Mariuszsienkiewicz\KMeans\DataType\Cluster> $clusters
+     * @param array<\Mariuszsienkiewicz\PAI\KMeans\DataType\Cluster> $clusters
      * @param int $iteration
      * @return void
      */
@@ -29,7 +29,7 @@ interface SubscriberInterface
 
     /**
      * Fired after reassigning points to new clusters
-     * @param array<\Mariuszsienkiewicz\KMeans\DataType\Cluster> $clusters
+     * @param array<\Mariuszsienkiewicz\PAI\KMeans\DataType\Cluster> $clusters
      * @param int $iteration
      * @return void
      */

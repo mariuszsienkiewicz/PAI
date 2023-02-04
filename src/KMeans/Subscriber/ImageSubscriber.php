@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariuszsienkiewicz\KMeans\Subscriber;
+namespace Mariuszsienkiewicz\PAI\KMeans\Subscriber;
 
 /**
  * Point of this subscriber is to create the image snapshot of each step of the 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariuszsienkiewicz\KMeans\DataType;
+namespace Mariuszsienkiewicz\PAI\KMeans\DataType;
 
 class Point
 {

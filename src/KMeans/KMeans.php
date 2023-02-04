@@ -1,10 +1,10 @@
 <?php
 
-namespace Mariuszsienkiewicz\KMeans;
+namespace Mariuszsienkiewicz\PAI\KMeans;
 
-use Mariuszsienkiewicz\KMeans\DataType\Cluster;
-use Mariuszsienkiewicz\KMeans\DataType\Point;
-use Mariuszsienkiewicz\KMeans\Subscriber\SubscriberInterface;
+use Mariuszsienkiewicz\PAI\KMeans\DataType\Cluster;
+use Mariuszsienkiewicz\PAI\KMeans\DataType\Point;
+use Mariuszsienkiewicz\PAI\KMeans\Subscriber\SubscriberInterface;
 
 class KMeans
 {
