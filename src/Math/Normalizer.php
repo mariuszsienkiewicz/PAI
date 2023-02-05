@@ -33,7 +33,7 @@ class Normalizer
         $min = [];
         $max = [];
 
-        for ($i = 0; $i < $attributesCount; $i++) {
+        for ($i = 0; $i < $attributesCount; ++$i) {
             $values = array_column($this->samples, $i);
             $min[$i] = min($values);
             $max[$i] = max($values);

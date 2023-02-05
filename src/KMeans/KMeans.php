@@ -9,37 +9,37 @@ use Mariuszsienkiewicz\PAI\KMeans\Subscriber\SubscriberInterface;
 class KMeans
 {
     /**
-     * 2D points that will be grouped
+     * 2D points that will be grouped.
+     *
      * @var array<Point>
      */
     private array $points = [];
 
     /**
-     * Number of clusters that will be created with points
-     * @var int
+     * Number of clusters that will be created with points.
      */
     private readonly int $clusterCount;
 
     /**
      * The limit of operations that the algorithm can perform.
-     * @var int 
      */
     private int $iterationLimit;
 
     /**
-     * Array containing Cluster objects
+     * Array containing Cluster objects.
+     *
      * @var array<Cluster>
      */
     private $clusters = [];
 
     /**
-     * Array with subscribers
+     * Array with subscribers.
+     *
      * @var array<SubscriberInterface>
      */
     private $subscribers = [];
 
     /**
-     * @param int $clusterCount
      * @param int $iterationLimit - 0 means that there is no limit
      */
     public function __construct(int $clusterCount = 1, $iterationLimit = 0)
@@ -49,8 +49,7 @@ class KMeans
     }
 
     /**
-     * Groups the points into the clusters
-     * @return array
+     * Groups the points into the clusters.
      */
     public function cluster(array $data): array
     {
@@ -62,16 +61,14 @@ class KMeans
 
         $iteration = 1;
         while (!$this->limitExceeded($iteration) && $this->iterate($iteration)) {
-            $iteration++;
+            ++$iteration;
         }
 
         return $this->clusters;
     }
 
     /**
-     * Attach subscriber that will be notified about events
-     * @param SubscriberInterface $subscriber
-     * @return void
+     * Attach subscriber that will be notified about events.
      */
     public function attachSubscriber(SubscriberInterface $subscriber): void
     {
@@ -79,8 +76,8 @@ class KMeans
     }
 
     /**
-     * Initialize KMeans data
-     * @param array $data
+     * Initialize KMeans data.
+     *
      * @return void
      */
     private function initializeData(array $data)
@@ -92,8 +89,7 @@ class KMeans
     }
 
     /**
-     * Assigns random cluster label for each point
-     * @return void
+     * Assigns random cluster label for each point.
      */
     private function assignRandomClusters(): void
     {
@@ -112,8 +108,8 @@ class KMeans
 
     /**
      * @todo use \SplObjectStorage for better attach/detach functions
-     * and faster operation of the alghoritm. 
-     * @param int $i
+     * and faster operation of the alghoritm.
+     *
      * @return bool
      */
     private function iterate(int $i)
@@ -121,7 +117,7 @@ class KMeans
         $attach = [];
         $detach = [];
 
-        // make sure clusters have up to date centroids data 
+        // make sure clusters have up to date centroids data
         foreach ($this->clusters as $cluster) {
             $cluster->computeCentroid();
         }
@@ -164,23 +160,20 @@ class KMeans
     }
 
     /**
-     * Creates the point object and adds it to the points array
-     * @param array $coordinate
-     * @return void
+     * Creates the point object and adds it to the points array.
      */
-    private function addPoint(array $coordinate)
+    private function addPoint(array $coordinate): void
     {
         $this->points[] = new Point($coordinate);
     }
 
     private function limitExceeded(int $iteration): bool
     {
-        return $this->iterationLimit != 0 && $iteration > $this->iterationLimit;
+        return 0 != $this->iterationLimit && $iteration > $this->iterationLimit;
     }
 
     /**
      * @param array<Point> $points
-     * @return void
      */
     private function notifySampleDataEvent(array $points): void
     {
@@ -191,7 +184,6 @@ class KMeans
 
     /**
      * @param array<Cluster> $clusters
-     * @return void
      */
     private function notifyRandomAssignmentEvent(array $clusters): void
     {
@@ -202,9 +194,7 @@ class KMeans
 
     /**
      * @param array<Cluster> $clusters
-     * @param array<array> $centroids
-     * @param int $index
-     * @return void
+     * @param array<array>   $centroids
      */
     private function notifyCentroidsCreationEvent(array $clusters, int $index): void
     {
@@ -215,8 +205,6 @@ class KMeans
 
     /**
      * @param array<Cluster> $clusters
-     * @param int $index
-     * @return void
      */
     private function notifyNewClustersEvent(array $clusters, int $index): void
     {

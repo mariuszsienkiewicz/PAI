@@ -3,97 +3,82 @@
 namespace Mariuszsienkiewicz\PAI\KMeans\Subscriber;
 
 /**
- * Point of this subscriber is to create the image snapshot of each step of the 
+ * Point of this subscriber is to create the image snapshot of each step of the
  * clustering process.
- * 
+ *
  * It's a really basic implementation just to show the points in the data contrainer.
- * 
+ *
  * GD library is required.
  */
 class ImageSubscriber implements SubscriberInterface
 {
-
     /**
-     * Path to the folder where the images will be saved
-     * @var string
+     * Path to the folder where the images will be saved.
      */
     private string $imgsPath;
 
     /**
-     * Image width in pixels
-     * @var int
+     * Image width in pixels.
      */
     private int $width;
 
     /**
-     * Image height in pixels
-     * @var int
+     * Image height in pixels.
      */
     private int $height;
 
     /**
-     * Padding percentage that will be used to move elements apart
-     * @var float
+     * Padding percentage that will be used to move elements apart.
      */
     private float $paddingPercentage = .05;
 
     /**
-     * Data container min height in pixels, used to map the values on container 
-     * @var int
+     * Data container min height in pixels, used to map the values on container.
      */
     private int $dataContainerMinHeight;
 
     /**
-     * Data container max height in pixels, used to map the values on container
-     * @var int
+     * Data container max height in pixels, used to map the values on container.
      */
     private int $dataContainerMaxHeight;
 
     /**
-     * Data container min width in pixels, used to map the values on container
-     * @var int
+     * Data container min width in pixels, used to map the values on container.
      */
     private int $dataContainerMinWidth;
 
     /**
-     * Data container max width in pixels, used to map the values on container
-     * @var int
+     * Data container max width in pixels, used to map the values on container.
      */
     private int $dataContainerMaxWidth;
 
     /**
-     * Text offset used to properly place text in the padding space
-     * @var float
+     * Text offset used to properly place text in the padding space.
      */
     private float $textOffset = 1.25;
 
     /**
-     * Size of the point that represents data
-     * @var int
+     * Size of the point that represents data.
      */
     private int $pointSize = 2;
 
     /**
-     * Size of point that represents centroid
-     * @var int
+     * Size of point that represents centroid.
      */
     private int $centroidSize = 8;
 
     /**
-     * Minimal data value, used to map pixels
-     * @var float
+     * Minimal data value, used to map pixels.
      */
     private float $minVal;
 
     /**
-     * Maximal data value, used to map pixels
-     * @var float
+     * Maximal data value, used to map pixels.
      */
     private float $maxVal;
 
     /**
-     * Array of rgb values that will be used to colour points in clusters
-     * @var array
+     * Array of rgb values that will be used to colour points in clusters.
      */
     private array $colours = [
         1 => [244, 67, 54],
@@ -114,16 +99,16 @@ class ImageSubscriber implements SubscriberInterface
         16 => [255, 87, 34],
         17 => [121, 85, 72],
         18 => [158, 158, 158],
-        19 => [96, 125, 139]
+        19 => [96, 125, 139],
     ];
 
     /**
-     * @param string $imgsPath - path to the image folder
-     * @param int $width - image width in pixels
-     * @param int $height - image height in pixels
-     * @param float $minVal - min value of data (used for value mapping)
-     * @param float $maxVal - max value of data (used for value mapping)
-     * @param array<array> $colours - array where key is the index of the cluster and value is rgb array of that cluster  
+     * @param string       $imgsPath - path to the image folder
+     * @param int          $width    - image width in pixels
+     * @param int          $height   - image height in pixels
+     * @param float        $minVal   - min value of data (used for value mapping)
+     * @param float        $maxVal   - max value of data (used for value mapping)
+     * @param array<array> $colours  - array where key is the index of the cluster and value is rgb array of that cluster
      */
     public function __construct(string $imgsPath, int $width, int $height, float $minVal, float $maxVal, array $colours = [])
     {
@@ -151,11 +136,11 @@ class ImageSubscriber implements SubscriberInterface
 
         foreach ($points as $point) {
             $this->addEllipse($im, $point->coordinates[0], $point->coordinates[1], $this->pointSize, $pointColour);
-            $pointsCount++;
+            ++$pointsCount;
         }
 
-        $this->addText($im, "Sample data.");
-        $this->saveImage($im, "sample_data");
+        $this->addText($im, 'Sample data.');
+        $this->saveImage($im, 'sample_data');
     }
 
     /**
@@ -166,8 +151,8 @@ class ImageSubscriber implements SubscriberInterface
         $im = $this->getImage();
 
         $this->addDataToImage($im, $clusters);
-        $this->addText($im, "Random cluster assignment.");
-        $this->saveImage($im, "random_assignment");
+        $this->addText($im, 'Random cluster assignment.');
+        $this->saveImage($im, 'random_assignment');
     }
 
     /**
@@ -179,7 +164,7 @@ class ImageSubscriber implements SubscriberInterface
 
         $this->addDataToImage($im, $clusters, $clusters);
         $this->addText($im, "Iteration: $index\A");
-        $this->saveImage($im, $index . 'A');
+        $this->saveImage($im, $index.'A');
     }
 
     /**
@@ -191,13 +176,11 @@ class ImageSubscriber implements SubscriberInterface
 
         $this->addDataToImage($im, $clusters);
         $this->addText($im, "Iteration: $index\B");
-        $this->saveImage($im, $index . 'B');
+        $this->saveImage($im, $index.'B');
     }
 
     /**
-     * Sets the single data point, in pixels
-     * @param int $size
-     * @return void
+     * Sets the single data point, in pixels.
      */
     public function setPointSize(int $size): void
     {
@@ -205,10 +188,8 @@ class ImageSubscriber implements SubscriberInterface
     }
 
     /**
-     * Sets the centroid data point, in pixels, should be bigger 
-     * than the point size
-     * @param int $size
-     * @return void
+     * Sets the centroid data point, in pixels, should be bigger
+     * than the point size.
      */
     public function setCentroidSize(int $size): void
     {
@@ -216,11 +197,11 @@ class ImageSubscriber implements SubscriberInterface
     }
 
     /**
-     * Adds data to the image, it's possible to pass centroids 
-     * to add them in the same moment as clusters data
-     * @param \GdImage $im
-     * @param array $clusters
+     * Adds data to the image, it's possible to pass centroids
+     * to add them in the same moment as clusters data.
+     *
      * @param array $centroids - optional
+     *
      * @return void
      */
     private function addDataToImage(\GdImage $im, array $clusters, array $centroids = [])
@@ -242,13 +223,7 @@ class ImageSubscriber implements SubscriberInterface
 
     /**
      * Adds the point to the data container.
-     * This function uses the values ​​that have been padded.  
-     * @param \GdImage $im
-     * @param int $x
-     * @param int $y
-     * @param int $size
-     * @param int $colour
-     * @return void
+     * This function uses the values ​​that have been padded.
      */
     private function addEllipse(\GdImage $im, int $x, int $y, int $size, int $colour): void
     {
@@ -260,10 +235,6 @@ class ImageSubscriber implements SubscriberInterface
 
     /**
      * Adds the text below the data container.
-     * 
-     * @param \GdImage $im
-     * @param string $text
-     * @return void
      */
     private function addText(\GdImage $im, string $text): void
     {
@@ -279,13 +250,12 @@ class ImageSubscriber implements SubscriberInterface
 
     /**
      * Saves the image to the requested path.
-     * @param \GdImage $im
-     * @param string $filename 
+     *
      * @return void
      */
     private function saveImage(\GdImage $im, string $filename)
     {
-        imagejpeg($im, $this->imgsPath . DIRECTORY_SEPARATOR . "$filename.jpg");
+        imagejpeg($im, $this->imgsPath.DIRECTORY_SEPARATOR."$filename.jpg");
     }
 
     private function getImage(): \GdImage
@@ -314,8 +284,10 @@ class ImageSubscriber implements SubscriberInterface
         return ($value - $fromMin) * ($toMax - $toMin) / ($fromMax - $fromMin) + $toMin;
     }
 
-    private function getColour($im, $index) {
+    private function getColour($im, $index)
+    {
         [$r, $g, $b] = $this->colours[$index];
+
         return imagecolorallocate($im, $r, $g, $b);
-    } 
+    }
 }

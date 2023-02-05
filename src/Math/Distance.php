@@ -12,6 +12,7 @@ class Distance
         }
 
         $sumDistances = array_sum($distances);
+
         return sqrt($sumDistances);
     }
 }

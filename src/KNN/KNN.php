@@ -8,25 +8,27 @@ use Mariuszsienkiewicz\PAI\Math\Normalizer;
 class KNN
 {
     /**
-     * Number of nearest neighbours to consider
-     * @var int 
+     * Number of nearest neighbours to consider.
      */
     private int $k;
 
     /**
-     * Samples used in the process
+     * Samples used in the process.
+     *
      * @var array<array>
      */
     private array $samples;
 
     /**
-     * Labels for each sample
+     * Labels for each sample.
+     *
      * @var array<array>
      */
     private array $labels;
 
     /**
-     * Array containing counted labels
+     * Array containing counted labels.
+     *
      * @var array<string, integer>
      */
     private array $labelsCount;
@@ -40,20 +42,21 @@ class KNN
     }
 
     /**
-     * Predict the the label of given sample
-     * @param array $sample
-     * @return null|string
+     * Predict the the label of given sample.
+     *
+     * @return string|null
      */
     public function predict(array $sample)
     {
         $distances = $this->getDistancesToNeighbours($sample);
         $nearestNeighbours = array_slice($distances, 0, $this->k, true);
+
         return $this->getNearestNeighbourLabel($nearestNeighbours);
     }
 
     /**
-     * Calculates the distance between sample to predict and all other samples 
-     * @param array $sample
+     * Calculates the distance between sample to predict and all other samples.
+     *
      * @return array containing all neighbor distances sorted in ascending order
      */
     private function getDistancesToNeighbours(array $sample)
@@ -72,9 +75,11 @@ class KNN
     }
 
     /**
-     * Get nearest neighbour group label
+     * Get nearest neighbour group label.
+     *
      * @param array $neighbours
-     * @return null|string
+     *
+     * @return string|null
      */
     private function getNearestNeighbourLabel($neighbours)
     {
