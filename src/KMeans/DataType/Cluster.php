@@ -2,9 +2,6 @@
 
 namespace Mariuszsienkiewicz\PAI\KMeans\DataType;
 
-/**
- * Summary of Cluster
- */
 class Cluster
 {
     /**
