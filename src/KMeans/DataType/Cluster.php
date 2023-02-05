@@ -5,25 +5,24 @@ namespace Mariuszsienkiewicz\PAI\KMeans\DataType;
 class Cluster
 {
     /**
-     * Array containing all the points in the cluster
+     * Array containing all the points in the cluster.
+     *
      * @var array<Point>
      */
     private array $points = [];
 
     /**
-     * Point where the centroid lies
-     * @var Point
+     * Point where the centroid lies.
      */
     public Point $centroid;
 
     /**
-     * Computes centroid of the cluster
-     * @return void
+     * Computes centroid of the cluster.
      */
     public function computeCentroid(): void
     {
         $count = $this->count();
-        if ($count == 0) {
+        if (0 == $count) {
             return;
         }
 
@@ -45,7 +44,6 @@ class Cluster
 
         $this->centroid = new Point($centroidCoordinations);
     }
-
 
     public function assign(Point $point): void
     {

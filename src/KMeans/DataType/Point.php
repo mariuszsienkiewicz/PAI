@@ -1,6 +1,7 @@
 <?php
 
 namespace Mariuszsienkiewicz\PAI\KMeans\DataType;
+
 use Mariuszsienkiewicz\PAI\Math\Distance;
 
 class Point
@@ -13,9 +14,9 @@ class Point
     }
 
     /**
-     * Gets the closest cluster
+     * Gets the closest cluster.
+     *
      * @param array<Cluster> $clusters
-     * @return int
      */
     public function getClosestCluster(array $clusters): int
     {
@@ -34,9 +35,7 @@ class Point
     }
 
     /**
-     * Calculates the euclidean distance
-     * @param Point $point
-     * @return int
+     * Calculates the euclidean distance.
      */
     public function calculateDistance(Point $point): int
     {
