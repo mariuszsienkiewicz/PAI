@@ -1,6 +1,7 @@
 <?php
 
 namespace Mariuszsienkiewicz\PAI\KMeans\DataType;
+use Mariuszsienkiewicz\PAI\Math\Distance;
 
 class Point
 {
@@ -39,11 +40,6 @@ class Point
      */
     public function calculateDistance(Point $point): int
     {
-        $coordinates = [];
-        foreach ($point->coordinates as $axis => $coordinate) {
-            $coordinates[] = pow($this->coordinates[$axis] - $coordinate, 2);
-        }
-
-        return array_sum($coordinates);
+        return Distance::euclidianDistance($this->coordinates, $point->coordinates);
     }
 }
